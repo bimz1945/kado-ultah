@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Gift Access</title>
+    
+    <!-- Bootstrap 5 & Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Script Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            background-color: #fff0f3;
+        }
+
+        /* OVERLAY UNTUK ANIMASI KELUAR HALAMAN (SAAT SUCCESS LOGIN) */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #fff0f3;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .page-transition-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+        }
+
+        .app-container.exit-anim {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+
+        /* ======================================================== */
+        /* ANIMASI MASUK PERTAMA KALI WEBSITE DIBUKA (ENTRANCE)     */
+        /* ======================================================== */
+
+        /* Panel Kiri Meluncur dari Bawah */
+        .left-panel {
+            width: 440px;
+            min-width: 440px;
+            background-color: #fff0f3;
+            height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.05);
+            overflow-y: auto;
+            
+            /* CSS Animasi Landing */
+            animation: slideInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Panel Kanan Meluncur dari Kanan */
+        .right-panel {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            background-color: #000000;
+            overflow: hidden;
+
+            /* CSS Animasi Landing */
+            animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Animasi Elemen Form Masuk Bertahap (Staggered) */
+        .brand-logo, .avatar-container, .title-text, .subtitle-text, .form-group-custom, .remember-me, .btn-sweet-submit, .left-footer {
+            opacity: 0;
+            animation: fadeInElement 0.8s ease-out forwards;
+        }
+
+        /* Delay Tiap Elemen Supaya Muncul Bergantian */
+        .brand-logo          { animation-delay: 0.3s; }
+        .avatar-container     { animation-delay: 0.45s; }
+        .title-text          { animation-delay: 0.6s; }
+        .subtitle-text       { animation-delay: 0.7s; }
+        .form-group-custom   { animation-delay: 0.8s; }
+        .remember-me         { animation-delay: 0.9s; }
+        .btn-sweet-submit    { animation-delay: 1.0s; }
+        .left-footer         { animation-delay: 1.1s; }
+
+        /* KEYFRAMES ANIMASI */
+        @keyframes slideInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(80px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInElement {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ======================================================== */
+
+        /* BRAND BADGE HEADER */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .brand-badge {
+            background: #ffffff;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-family: 'Comfortaa', cursive;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ff526c;
+            box-shadow: 0 4px 15px rgba(255, 82, 108, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* CONTAINER TENGAH */
+        .form-center-wrapper {
+            margin: auto 0;
+            text-align: center;
+        }
+
+        /* AVATAR / FOTO PROFIL */
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 105px;
+            height: 105px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 25px rgba(255, 82, 108, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .heart-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 2px;
+            background: #ff526c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 2px solid #ffffff;
+        }
+
+        .title-text {
+            font-family: 'Comfortaa', cursive;
+            font-size: 24px;
+            font-weight: 700;
+            color: #333333;
+            margin-bottom: 6px;
+        }
+
+        .subtitle-text {
+            font-size: 12px;
+            color: #777777;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* FORM INPUT */
+        .form-group-custom {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .form-control-custom {
+            background: #ffffff;
+            border: 2px solid #ffe3e8;
+            border-radius: 20px;
+            padding: 14px 45px 14px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333333;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+
+        /* Mencegah background kuning bawaan browser */
+        .form-control-custom:-webkit-autofill,
+        .form-control-custom:-webkit-autofill:hover, 
+        .form-control-custom:-webkit-autofill:focus {
+            -webkit-text-fill-color: #333333;
+            -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+            border-color: #ff526c !important;
+        }
+
+        .form-control-custom::placeholder {
+            color: #aaaaaa;
+        }
+
+        .form-control-custom:focus {
+            border-color: #ff526c;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(255, 82, 108, 0.2);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff526c;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* CHECKBOX */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #555555;
+            margin-bottom: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .remember-me input {
+            accent-color: #ff526c;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* SUBMIT BUTTON CORAL PINK */
+        .btn-sweet-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 18px;
+            background-color: #ff526c;
+            border: none;
+            color: #ffffff;
+            font-family: 'Comfortaa', cursive;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 82, 108, 0.35);
+        }
+
+        .btn-sweet-submit:hover:not(:disabled) {
+            background-color: #ff3b56;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(255, 82, 108, 0.45);
+        }
+
+        .btn-sweet-submit:disabled {
+            background-color: #d1d5db;
+            color: #9ca3af;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* FOOTER KIRI */
+        .left-footer {
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .hint-link {
+            background: none;
+            border: none;
+            color: #ff526c;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: opacity 0.2s;
+        }
+
+        .hint-link:hover { opacity: 0.8; }
+
+        /* PANEL KANAN (SLIDER FOTO) */
+        .custom-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide-item {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-item.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .bg-blur {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(25px) brightness(0.5);
+            transform: scale(1.1);
+            z-index: 1;
+        }
+
+        .img-main {
+            position: relative;
+            z-index: 2;
+            max-height: 90%;
+            max-width: 90%;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #ff526c;
+            width: 26px;
+            border-radius: 10px;
+        }
+
+        /* MODAL PETUNJUK */
+        .modal-content {
+            border-radius: 24px;
+            border: none;
+            background: #ffffff;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .hint-icon-box {
+            width: 65px;
+            height: 65px;
+            background: #fff0f3;
+            color: #ff526c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 15px auto;
+        }
+
+        @media (max-width: 850px) {
+            .app-container {
+                flex-direction: column-reverse;
+                overflow-y: auto;
+            }
+            .left-panel {
+                width: 100%;
+                min-width: 100%;
+                height: auto;
+                padding: 30px 20px;
+            }
+            .right-panel {
+                height: 350px;
+                min-height: 350px;
+            }
+            body, html { overflow: auto; }
+        }
+
+        .shake { animation: shake 0.4s ease-in-out; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY TRANSISI -->
+    <div class="page-transition-overlay" id="pageOverlay"></div>
+
+    <div class="app-container" id="appContainer">
+        
+        <!-- PANEL KIRI -->
+        <div class="left-panel" id="leftPanel">
+            <!-- BRAND BADGE HEADER -->
+            <div class="brand-logo">
+                <div class="brand-badge">
+                    <i class="bi bi-gift-fill"></i> Special Gift
+                </div>
+            </div>
+
+            <!-- FORM & FOTO PROFIL -->
+            <div class="form-center-wrapper">
+                
+                <div class="avatar-container">
+                    <img src="adek/adek1.jpeg" alt="Avatar Sayang" class="profile-avatar">
+                    <div class="heart-badge"><i class="bi bi-heart-fill"></i></div>
+                </div>
+
+                <h4 class="title-text">Halooo Sayanggg! ✨</h4>
+                <p class="subtitle-text">Masukkan kode rahasia buat buka kejutannya yaa!</p>
+
+                <form onsubmit="checkCode(event)">
+                    <div class="form-group-custom">
+                        <input type="password" id="passCode" class="form-control-custom" placeholder="Ketik kodenya di sini..." required autocomplete="off">
+                        <i class="bi bi-eye-slash-fill toggle-password" id="toggleEye" onclick="togglePassword()"></i>
+                    </div>
+
+                    <div id="errorMsg" class="text-danger small fw-semibold d-none mb-3" style="font-size: 11px;">
+                        <i class="bi bi-exclamation-circle-fill me-1"></i> Ayoo tebak lagi sayangg
+                    </div>
+
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberCheck" onchange="toggleSubmitBtn()">
+                        <span> Sudahh Yakinn sayangg?</span>
+                    </label>
+
+                    <button type="submit" id="submitBtn" class="btn-sweet-submit" disabled>
+                        <span id="btnText">Masuk Kejutan</span> <i class="bi bi-arrow-right-short fs-5" id="btnIcon"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- FOOTER KIRI -->
+            <div class="left-footer">
+                <button type="button" class="hint-link" onclick="showHint()">Klik kalo lupa Sayangg?</button>
+            </div>
+        </div>
+
+        <!-- PANEL KANAN (SLIDER FOTO) -->
+        <div class="right-panel">
+            <div class="custom-carousel">
+                <div class="slide-item active">
+                    <img src="adek/adek1.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/adek1.jpeg" class="img-main" alt="Adek 1">
+                </div>
+                <div class="slide-item">
+                    <img src="adek/adek2.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/adek2.jpeg" class="img-main" alt="Adek 2">
+                </div>
+                <div class="slide-item">
+                    <img src="adek/adek3.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/adek3.jpeg" class="img-main" alt="Adek 3">
+                </div>
+                <div class="slide-item">
+                    <img src="adek/adek4.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/adek4.jpeg" class="img-main" alt="Adek 4">
+                </div>
+                <div class="slide-item">
+                    <img src="adek/adek5.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/adek5.jpeg" class="img-main" alt="Adek 5">
+                </div>
+                <div class="slide-item">
+                    <img src="adek/addek6.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/addek6.jpeg" class="img-main" alt="Adek 6">
+                </div>
+                <div class="slide-item">
+                    <img src="adek/addek7.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/addek7.jpeg" class="img-main" alt="Adek 7">
+                </div>
+                <!-- Foto Tambahan -->
+                <div class="slide-item">
+                    <img src="adek/adek8.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/adek8.jpeg" class="img-main" alt="Adek 8">
+                </div>
+                <div class="slide-item">
+                    <img src="adek/adek9.jpeg" class="bg-blur" alt="bg">
+                    <img src="adek/adek9.jpeg" class="img-main" alt="Adek 9">
+                </div>
+
+                <div class="carousel-dots" id="dotsContainer"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL PETUNJUK -->
+    <div class="modal fade" id="hintModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content text-center p-4">
+                <div class="hint-icon-box">
+                    <i class="bi bi-lightbulb-fill"></i>
+                </div>
+                <h6 class="fw-bold mb-2" style="color: #333333; font-size: 16px; font-family: 'Comfortaa', cursive;">Clue Kode</h6>
+                <p id="hintMessageText" class="text-muted small mb-4" style="font-size: 12px; line-height: 1.5;">
+                    Tanggal jadian Sayangg Masaa lupaa 
+                </p>
+                <button type="button" class="btn btn-danger btn-sm rounded-pill px-4 py-2 w-100 fw-bold" data-bs-dismiss="modal" style="background-color: #ff526c; border: none;">
+                  ingett sayanggg
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const secretCode = "300825";
+
+        function toggleSubmitBtn() {
+            const checkbox = document.getElementById('rememberCheck');
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = !checkbox.checked;
+        }
+
+        function showHint() {
+            const modalEl = document.getElementById('hintModal');
+            if (modalEl) {
+                const myModal = new bootstrap.Modal(modalEl);
+                myModal.show();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const slides = document.querySelectorAll(".slide-item");
+            const dotsContainer = document.getElementById("dotsContainer");
+            let currentIndex = 0;
+
+            slides.forEach((_, index) => {
+                const dot = document.createElement("div");
+                dot.classList.add("dot");
+                if (index === 0) dot.classList.add("active");
+                dot.addEventListener("click", () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll(".dot");
+
+            function goToSlide(index) {
+                slides[currentIndex].classList.remove("active");
+                dots[currentIndex].classList.remove("active");
+
+                currentIndex = index;
+
+                slides[currentIndex].classList.add("active");
+                dots[currentIndex].classList.add("active");
+            }
+
+            setInterval(() => {
+                let nextIndex = (currentIndex + 1) % slides.length;
+                goToSlide(nextIndex);
+            }, 3000);
+        });
+
+        function checkCode(event) {
+            event.preventDefault();
+            const input = document.getElementById('passCode').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const leftPanel = document.getElementById('leftPanel');
+            const appContainer = document.getElementById('appContainer');
+            const pageOverlay = document.getElementById('pageOverlay');
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+
+            if (input === secretCode) {
+                errorMsg.classList.add('d-none');
+                btnText.innerText = "Membuka...";
+                btnIcon.className = "bi bi-heart-fill spinner-grow spinner-grow-sm";
+
+                appContainer.classList.add('exit-anim');
+                pageOverlay.classList.add('active');
+
+                setTimeout(() => {
+                    window.location.href = "sayangg.html";
+                }, 800);
+
+            } else {
+                errorMsg.classList.remove('d-none');
+                leftPanel.classList.add('shake');
+                setTimeout(() => leftPanel.classList.remove('shake'), 400);
+            }
+        }
+
+        function togglePassword() {
+            const input = document.getElementById('passCode');
+            const eye = document.getElementById('toggleEye');
+            if (input.type === 'password') {
+                input.type = 'text';
+                eye.classList.replace('bi-eye-slash-fill', 'bi-eye-fill');
+            } else {
+                input.type = 'password';
+                eye.classList.replace('bi-eye-fill', 'bi-eye-slash-fill');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Wish! - Spesial Untuk Sayang</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-color: #ff526c;
+            --secondary-color: #ff8fa3;
+            --bg-color: #fff0f3;
+            --card-border: #ffe3e8;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            color: #333333;
+            overflow-x: hidden;
+            padding: 30px 0;
+        }
+
+        .main-card {
+            background: #ffffff;
+            border: 2px solid var(--card-border);
+            border-radius: 28px;
+            padding: 35px 20px;
+            box-shadow: 0 15px 35px rgba(255, 82, 108, 0.1);
+            max-width: 550px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .cake-container {
+            position: relative;
+            width: 280px;
+            margin: 40px auto 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: none;
+        }
+
+        .candles-row {
+            display: flex;
+            justify-content: space-around;
+            width: 160px;
+            margin-bottom: -4px;
+            z-index: 5;
+        }
+
+        .candle-single {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30px;
+            cursor: pointer;
+        }
+
+        .flame-element {
+            width: 16px;
+            height: 24px;
+            background: radial-gradient(ellipse at bottom, #ffffff 0%, #ffcc00 40%, #ff4500 100%);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 12px #ff9900, 0 0 22px #ff4500;
+            animation: flicker 0.15s infinite alternate;
+            margin-bottom: 2px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .flame-element.off {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: scale(0.2);
+        }
+
+        .wick {
+            width: 2px;
+            height: 6px;
+            background-color: #444;
+        }
+
+        .candle-body {
+            width: 14px;
+            height: 45px;
+            background: repeating-linear-gradient(45deg, #ffffff, #ffffff 5px, #ff526c 5px, #ff526c 10px);
+            border-radius: 4px 4px 0 0;
+            box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.15);
+        }
+
+        .cake-top-layer {
+            width: 200px;
+            height: 55px;
+            background: #ffb3c1;
+            border-radius: 16px 16px 10px 10px;
+            position: relative;
+            box-shadow: inset 0 8px 0 #ffffff;
+            z-index: 2;
+        }
+
+        .cake-bottom-layer {
+            width: 250px;
+            height: 65px;
+            background: #ff8fa3;
+            border-radius: 12px 12px 24px 24px;
+            margin-top: -10px;
+            box-shadow: inset 0 10px 0 #ff9ebb, 0 12px 20px rgba(255, 82, 108, 0.2);
+            z-index: 1;
+        }
+
+        .cake-plate {
+            width: 280px;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-top: -4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); }
+            100% { transform: scale(1.08) rotate(2deg); }
+        }
+
+        .gallery-box {
+            background: #ffffff;
+            border: 2px solid var(--card-border);
+            border-radius: 28px;
+            padding: 35px 20px;
+            box-shadow: 0 15px 35px rgba(255, 82, 108, 0.08);
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Kartu Foto dengan Efek Hover Merah/Pink */
+        .photo-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 12px;
+            border: 2px solid var(--card-border);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 30px rgba(255, 82, 108, 0.35);
+        }
+
+        .photo-img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .photo-caption {
+            color: #444;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-top: 10px;
+            margin-bottom: 0;
+            transition: color 0.3s ease;
+        }
+
+        .photo-card:hover .photo-caption {
+            color: var(--primary-color);
+        }
+
+        .text-theme {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-theme-soft {
+            background-color: var(--card-border) !important;
+        }
+
+        .btn-mic {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-radius: 25px;
+            padding: 10px 22px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 82, 108, 0.25);
+        }
+
+        .btn-back {
+            background-color: var(--primary-color);
+            color: #ffffff !important;
+            border-radius: 30px;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .font-handwriting {
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="celebration-music" loop preload="auto">
+        <source src="selebrasi.mp3" type="audio/mpeg">
+        <source src="selebrasi.mp4" type="audio/mpeg">
+    </audio>
+
+    <div class="container text-center px-3">
+
+        <div class="main-card" id="mainCard" data-aos="fade-down">
+            <span class="badge bg-theme-soft text-theme px-3 py-2 rounded-pill fw-semibold mb-2" style="font-size: 12px;">
+                Make a Wish sayangg <i class="bi bi-cake2-fill ms-1"></i>
+            </span>
+
+            <h2 class="fw-bold mb-1 text-theme h3">Tiup Semua Lilinnya, Sayanggg!</h2>
+            <p class="text-muted small mb-2" id="subText">
+                Aktifkan Mic buat ditiup lilinnya, <br><strong>Jangan Lupa Berdoa duluu sayangg</strong>
+            </p>
+
+            <div class="cake-container">
+                <div class="candles-row">
+                    <div class="candle-single" onclick="manualExtinguish(0, event)">
+                        <div class="flame-element" id="flame-0"></div>
+                        <div class="wick"></div>
+                        <div class="candle-body"></div>
+                    </div>
+                    <div class="candle-single" onclick="manualExtinguish(1, event)">
+                        <div class="flame-element" id="flame-1"></div>
+                        <div class="wick"></div>
+                        <div class="candle-body"></div>
+                    </div>
+                    <div class="candle-single" onclick="manualExtinguish(2, event)">
+                        <div class="flame-element" id="flame-2"></div>
+                        <div class="wick"></div>
+                        <div class="candle-body"></div>
+                    </div>
+                </div>
+
+                <div class="cake-top-layer"></div>
+                <div class="cake-bottom-layer"></div>
+                <div class="cake-plate"></div>
+            </div>
+
+            <div id="micControl" class="mb-3">
+                <button class="btn btn-mic" id="btnEnableMic" onclick="initMicrophone(event)">
+                    <i class="bi bi-mic-fill me-1"></i> Aktifkan Sensor Tiupan (Mic)
+                </button>
+            </div>
+
+            <div id="wishMessage">
+                <p class="fw-semibold text-muted small mb-0" id="statusText">
+                    <i class="bi bi-fire text-danger me-1"></i> Sisa Lilin: <span id="candleCount" class="text-danger fw-bold">3</span> / 3
+                </p>
+            </div>
+        </div>
+
+        <div id="photoSection" class="d-none mt-5">
+            <div class="gallery-box" data-aos="fade-up">
+                <h3 class="fw-bold text-theme h4 mb-1">
+                    Galeri Cantik Sayang <i class="bi bi-images text-danger ms-1"></i>
+                </h3>
+                <p class="text-muted small mb-4">Setiap detik sama adeek itu hal paling berharga buat mamas!</p>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/adek1.jpeg', 'Cantiknya Sayangku')">
+                            <img src="adek/adek1.jpeg" class="photo-img">
+                            <p class="photo-caption">Cantiknya Sayangku <i class="bi bi-heart-fill text-danger ms-1"></i></p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/adek2.jpeg', 'Manis Banget')">
+                            <img src="adek/adek2.jpeg" class="photo-img">
+                            <p class="photo-caption">Manis Banget <i class="bi bi-stars text-warning ms-1"></i></p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/adek3.jpeg', 'Favorit Aku')">
+                            <img src="adek/adek3.jpeg" class="photo-img">
+                            <p class="photo-caption">Favorit Aku <i class="bi bi-star-fill text-warning ms-1"></i></p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/adek4.jpeg', 'Gemes Banget')">
+                            <img src="adek/adek4.jpeg" class="photo-img">
+                            <p class="photo-caption">Gemes Banget <i class="bi bi-emoji-smile-fill text-warning ms-1"></i></p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/adek5.jpeg', 'Senyum Bahagia')">
+                            <img src="adek/adek5.jpeg" class="photo-img">
+                            <p class="photo-caption">Senyum Bahagia <i class="bi bi-suit-heart-fill text-danger ms-1"></i></p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/addek6.jpeg', 'Malaikatku')">
+                            <img src="adek/addek6.jpeg" class="photo-img">
+                            <p class="photo-caption">Malaikatku <i class="bi bi-award-fill text-danger ms-1"></i></p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/addek7.jpeg', 'Bahagia Selalu Ya')">
+                            <img src="adek/addek7.jpeg" class="photo-img">
+                            <p class="photo-caption">Bahagia Selalu Ya <i class="bi bi-balloon-fill text-primary ms-1"></i></p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/adek8.jpeg', 'Semangat Terus Sayang!')">
+                            <img src="adek/adek8.jpeg" class="photo-img">
+                            <p class="photo-caption">Semangat Terus Sayang! <i class="bi bi-lightning-charge-fill text-warning ms-1"></i></p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="photo-card" onclick="openLightbox('adek/adek9.jpeg', 'Love You More Forever')">
+                            <img src="adek/adek9.jpeg" class="photo-img">
+                            <p class="photo-caption">Love You More Forever <i class="bi bi-hearts text-danger ms-1"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 pt-2 mb-4">
+            <a href="sayangg.html" class="btn btn-back">
+                <i class="bi bi-arrow-left"></i> Kembali ke Halaman Utama
+            </a>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="photoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 bg-transparent text-center">
+                <div class="modal-body p-0">
+                    <img id="modalImg" src="" class="img-fluid rounded-4 shadow-lg mb-2" style="max-height: 80vh;">
+                    <p id="modalCaption" class="text-white fw-semibold fs-5"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        let candlesState = [true, true, true];
+        let isProcessingBlow = false;
+        let micActive = false;
+        let audioContext, analyser, microphone, dataArray;
+
+        function manualExtinguish(index, event) {
+            if (event) event.stopPropagation();
+
+            if (candlesState[index] === true) {
+                turnOffCandle(index);
+            }
+        }
+
+        function turnOffCandle(index) {
+            candlesState[index] = false;
+
+            const flame = document.getElementById(`flame-${index}`);
+            if (flame) flame.classList.add("off");
+
+            updateStatusUI();
+        }
+
+        function extinguishOneCandleByBlow() {
+            if (isProcessingBlow) return;
+
+            let activeIndices = [];
+            candlesState.forEach((state, i) => {
+                if (state === true) activeIndices.push(i);
+            });
+
+            if (activeIndices.length > 0) {
+                isProcessingBlow = true;
+                turnOffCandle(activeIndices[0]);
+
+                setTimeout(() => {
+                    isProcessingBlow = false;
+                }, 1800);
+            }
+        }
+
+        function updateStatusUI() {
+            let remainingCount = candlesState.filter(s => s === true).length;
+
+            const countEl = document.getElementById("candleCount");
+            if (countEl) countEl.innerText = remainingCount;
+
+            if (remainingCount === 2) {
+                document.getElementById("statusText").innerHTML = `
+                    <i class="bi bi-wind text-warning me-1"></i> Yaaay! Mati 1, tinggal <strong>2 lilin lagi</strong>!
+                `;
+            } else if (remainingCount === 1) {
+                document.getElementById("statusText").innerHTML = `
+                    <i class="bi bi-fire text-danger me-1"></i> Ayo tinggal <strong>1 LILIN TERAKHIR</strong>! Tiup lebih kencang lagi Sayang!
+                `;
+            } else if (remainingCount === 0) {
+                finishChallenge();
+            }
+        }
+
+        function finishChallenge() {
+            micActive = false;
+
+            const celebrationAudio = document.getElementById("celebration-music");
+            if (celebrationAudio) {
+                celebrationAudio.play().catch(e => console.log("Gagal memutar audio: ", e));
+            }
+
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    spread: 100,
+                    origin: { y: 0.6 }
+                });
+            }, 100);
+
+            setTimeout(() => {
+                document.getElementById("micControl").style.display = "none";
+                document.getElementById("statusText").innerText = "Selamat Ulang Tahun Sayanggg";
+                document.getElementById("statusText").className = "fw-bold text-theme fs-5";
+
+                document.getElementById("subText").innerHTML = `
+                    <span class="font-handwriting d-block mt-2">
+                        "Yeayyy! Doa Sayangg udah meluncur ke langit! Semoga semua impian nya sayangg dikabulkan oleh Allah. Sehat terus & bahagia selalu yaa,Sayangg LOVEE YOUU ADEKK"
+                    </span>
+                `;
+
+                const photoSection = document.getElementById("photoSection");
+                photoSection.classList.remove("d-none");
+                AOS.refresh();
+
+                setTimeout(() => {
+                    photoSection.scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+            }, 300);
+        }
+
+        async function initMicrophone(e) {
+            if (e) e.stopPropagation();
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                microphone = audioContext.createMediaStreamSource(stream);
+
+                microphone.connect(analyser);
+                analyser.fftSize = 256;
+
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+
+                const btn = document.getElementById("btnEnableMic");
+                btn.innerHTML = `<i class="bi bi-mic-fill text-success me-1"></i> Mic Aktif`;
+                btn.className = "btn btn-outline-danger btn-sm rounded-pill fw-bold";
+                btn.onclick = null;
+
+                isProcessingBlow = true;
+                micActive = true;
+
+                setTimeout(() => {
+                    isProcessingBlow = false;
+                    detectBlow();
+                }, 1500);
+
+            } catch (err) {
+                alert("Akses mic ditolak. Jangan khawatir, kamu bisa matikan lilin dengan CARA MENGKLIK LILINNYA LANGSUNG ya! 😊");
+            }
+        }
+
+        function detectBlow() {
+            if (!micActive) return;
+
+            let remaining = candlesState.filter(s => s === true).length;
+            if (remaining <= 0) return;
+
+            analyser.getByteFrequencyData(dataArray);
+
+            let sum = 0;
+            for (let i = 0; i < 15; i++) {
+                sum += dataArray[i];
+            }
+            let average = sum / 15;
+
+            let requiredVolume = (remaining === 1) ? 75 : 42;
+
+            if (average > requiredVolume && !isProcessingBlow) {
+                extinguishOneCandleByBlow();
+            }
+
+            requestAnimationFrame(detectBlow);
+        }
+
+        function openLightbox(src, caption) {
+            document.getElementById("modalImg").src = src;
+            document.getElementById("modalCaption").innerText = caption;
+            const photoModal = new bootstrap.Modal(document.getElementById('photoModal'));
+            photoModal.show();
+        }
+    </script>
+</body>
+
+</html>
