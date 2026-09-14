@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Birthday Present - Lindi Adelia Maharani</title>
-    
+    <title>Special Birthday Present</title>
     <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -94,6 +93,13 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
+        @media (max-width: 991.98px) {
+            .navbar-collapse { display: none; background-color: #ff526c; padding: 15px; border-radius: 0 0 15px 15px; }
+            .navbar-collapse.show-menu { display: block !important; }
+            .logout-container { margin-top: 12px; }
+            .btn-logout { width: 100%; justify-content: center; }
+        }
+
         /* Hero Section */
         .hero-section { 
             position: relative; 
@@ -153,10 +159,7 @@
         }
 
         .btn-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse { 
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 82, 108, 0.7); } 
-            70% { box-shadow: 0 0 0 15px rgba(255, 82, 108, 0); } 
-        }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 82, 108, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 82, 108, 0); } }
         
         /* Ribbon Cutie Component */
         .card-ribbon {
@@ -317,13 +320,8 @@
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="60">
 
-    <!-- Audio Player -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="WhatsApp Audio 2026-09-10 at 02.14.57.mpeg" type="audio/mpeg">
-    </audio>
-    <button id="musicToggle" class="btn music-btn d-flex align-items-center justify-content-center" onclick="toggleMusic()">
-        <i id="musicIcon" class="bi bi-disc-fill fs-4"></i>
-    </button>
+    <audio id="bg-music" loop preload="auto"><source src="WhatsApp Audio 2026-09-10 at 02.14.57.mpeg" type="audio/mpeg"></audio>
+    <button id="musicToggle" class="btn music-btn d-flex align-items-center justify-content-center" onclick="toggleMusic()"><i id="musicIcon" class="bi bi-disc-fill fs-4"></i></button>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-navbar-custom fixed-top py-2 shadow-sm" id="mainNav"> 
@@ -331,18 +329,16 @@
             <a href="#" class="navbar-brand fw-bold text-white d-flex align-items-center gap-2">
                 LINDI ADELIA MAHARANI <i class="bi bi-heart-fill text-white fs-6"></i>
             </a>
-            <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSaaS">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <button class="navbar-toggler border-white-50" type="button" onclick="toggleNavbarMenu()"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSaaS">
                 <ul class="navbar-nav ms-auto fw-medium align-items-lg-center">
-                    <li class="nav-item px-2"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item px-2"><a class="nav-link" href="lilin.html">Spesial</a></li>
-                    <li class="nav-item px-2"><a class="nav-link" href="#reasons">About You</a></li>
-                    <li class="nav-item px-2"><a class="nav-link" href="#gallery">Momen Kita</a></li>
-                    <li class="nav-item px-2"><a class="nav-link" href="#letter">Surat Cinta <i class="bi bi-envelope-heart ms-1"></i></a></li>
+                    <li class="nav-item px-2"><a class="nav-link active" href="#home" onclick="closeNavbarMenu()">Home</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="lilin.html" onclick="closeNavbarMenu()">Spesial</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#reasons" onclick="closeNavbarMenu()">About You</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#gallery" onclick="closeNavbarMenu()">Momen Kita</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#letter" onclick="closeNavbarMenu()">Surat Cinta <i class="bi bi-envelope-heart ms-1"></i></a></li>
                     
-                    <li class="nav-item ms-lg-3 logout-container my-2 my-lg-0">
+                    <li class="nav-item ms-lg-3 logout-container">
                         <a href="login.html" class="btn-logout">
                             <span>Keluar</span>
                             <i class="bi bi-box-arrow-right"></i>
@@ -355,9 +351,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section text-center text-white">
-        <video class="hero-video" autoplay loop muted playsinline>
-            <source src="vidio bareng.mp4" type="video/mp4">
-        </video>
+        <video class="hero-video" autoplay loop muted playsinline><source src="vidio bareng.mp4" type="video/mp4"></video>
         <div class="hero-overlay"></div>
         <div class="hero-content container px-4">
             <h1 class="display-5 fw-bold mb-2" data-aos="fade-down" id="typingHero">
@@ -366,7 +360,7 @@
             <p class="mb-4" data-aos="fade-up" style="font-size: 15px; font-weight: 400; opacity: 0.95;">Satu ini aku bikin khusus buat orang paling favorit di hidupku.</p>
             <div data-aos="zoom-in">
                 <a href="lilin.html" class="btn btn-sweet-hero btn-lg px-4 rounded-pill shadow btn-pulse d-inline-flex align-items-center gap-2">
-                   ADEK BUKA INI DULU YAA <i class="bi bi-cake2-fill"></i>
+                   ADA SESUATU BUAT SAYANGG <i class="bi bi-cake2-fill"></i>
                 </a>
             </div>
         </div>
@@ -428,7 +422,7 @@
                 <div class="col-md-4" data-aos="zoom-in">
                     <div class="card card-custom p-2">
                         <div class="card-ribbon"><i class="bi bi-bookmark-heart-fill"></i> Memory</div>
-                        <div class="gallery-wrapper"><img src="hero1.jpeg" class="img-gallery" onclick="openModal(this, 'Anniversary 1st')" alt="Anniversary"></div>
+                        <div class="gallery-wrapper"><img src="hero1.jpeg" class="img-gallery" onclick="openModal(this, 'Anniversary 1st')"></div>
                         <p class="fw-semibold mt-2 mb-0 small">Anniversary 1st</p>
                         <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i> 30 Agustus 2026</span>
                     </div>
@@ -437,25 +431,25 @@
                 <div class="col-md-4" data-aos="zoom-in">
                     <div class="card card-custom p-2">
                         <div class="card-ribbon"><i class="bi bi-bookmark-heart-fill"></i> Trip</div>
-                        <div class="gallery-wrapper"><img src="hero5.jpeg" class="img-gallery" onclick="openModal(this, 'Jalan-Jalan Bareng')" alt="Jalan-Jalan"></div>
+                        <div class="gallery-wrapper"><img src="hero5.jpeg" class="img-gallery" onclick="openModal(this, 'Jalan-Jalan Bareng')"></div>
                         <p class="fw-semibold mt-2 mb-0 small">Jalan-Jalan Bareng</p>
-                        <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i> 27 Mei 2026</span>
+                        <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i> 27 mei 2026</span>
                     </div>
                 </div>
 
                 <div class="col-md-4" data-aos="zoom-in">
                     <div class="card card-custom p-2">
                         <div class="card-ribbon"><i class="bi bi-bookmark-heart-fill"></i> Couple</div>
-                        <div class="gallery-wrapper"><img src="batik.jpeg" class="img-gallery" onclick="openModal(this, 'Couple Batik')" alt="Batik"></div>
+                        <div class="gallery-wrapper"><img src="batik.jpeg" class="img-gallery" onclick="openModal(this, 'Couple Batik')"></div>
                         <p class="fw-semibold mt-2 mb-0 small">Couple Batik</p>
-                        <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i> 14 Juni 2026</span>
+                        <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i> 14 juni 2026</span>
                     </div>
                 </div>
 
                 <div class="col-md-4" data-aos="zoom-in">
                     <div class="card card-custom p-2">
                         <div class="card-ribbon"><i class="bi bi-bookmark-heart-fill"></i> Special</div>
-                        <div class="gallery-wrapper"><img src="hero3.jpeg" class="img-gallery" onclick="openModal(this, 'Km 0 Malioboro')" alt="Malioboro"></div>
+                        <div class="gallery-wrapper"><img src="hero3.jpeg" class="img-gallery" onclick="openModal(this, 'Km 0 Malioboro')"></div>
                         <p class="fw-semibold mt-2 mb-0 small">Km 0 Malioboro <i class="bi bi-sparkles text-warning"></i></p>
                         <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i> 14 Januari 2026</span>
                     </div>
@@ -464,7 +458,7 @@
                 <div class="col-md-4" data-aos="zoom-in">
                     <div class="card card-custom p-2">
                         <div class="card-ribbon"><i class="bi bi-bookmark-heart-fill"></i> Love</div>
-                        <div class="gallery-wrapper"><img src="hero4.jpeg" class="img-gallery" onclick="openModal(this, 'Valentine Day')" alt="Valentine"></div>
+                        <div class="gallery-wrapper"><img src="hero4.jpeg" class="img-gallery" onclick="openModal(this, 'Valentine Day')"></div>
                         <p class="fw-semibold mt-2 mb-0 small">Valentine Day</p>
                         <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i> 14 Februari 2026</span>
                     </div>
@@ -473,9 +467,9 @@
                 <div class="col-md-4" data-aos="zoom-in">
                     <div class="card card-custom p-2">
                         <div class="card-ribbon"><i class="bi bi-bookmark-heart-fill"></i> Chill</div>
-                        <div class="gallery-wrapper"><img src="WhatsApp Image 2026-09-09 at 14.15.49.jpeg" class="img-gallery" onclick="openModal(this, 'Di Pantai')" alt="Pantai"></div>
+                        <div class="gallery-wrapper"><img src="WhatsApp Image 2026-09-09 at 14.15.49.jpeg" class="img-gallery" onclick="openModal(this, 'Di Pantai')"></div>
                         <p class="fw-semibold mt-2 mb-0 small">Di Pantai</p>
-                        <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i> 5 Juli 2026</span>
+                        <span class="text-muted small d-block" style="font-size: 11px;"><i class="bi bi-calendar-event me-1"></i>5 juli 2026</span>
                     </div>
                 </div>
             </div>
@@ -500,7 +494,7 @@
                                     <div class="polaroid-frame d-inline-block text-center">
                                         <img src="WhatsApp Image 2026-09-09 at 14.14.20.jpeg" alt="Foto Kenangan" class="img-fluid rounded" style="max-height: 220px; object-fit: cover;">
                                         <div class="mt-2 text-muted fw-bold" style="font-size: 12px; font-family: 'Poppins', sans-serif;">
-                                            <i class="bi bi-calendar-heart me-1"></i> 5 Maret 2026
+                                            <i class="bi bi-calendar-heart me-1"></i> 5 maret 2026
                                         </div>
                                     </div>
                                 </div>
@@ -531,11 +525,11 @@
     </footer>
 
     <!-- Modal Lightbox -->
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="imageModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content border-0 bg-transparent text-center position-relative">
-                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                <img id="modalImage" class="img-fluid rounded-4 shadow-lg mb-2" style="max-height:80vh;" alt="Modal Preview">
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"></button>
+                <img id="modalImage" class="img-fluid rounded-4 shadow-lg mb-2" style="max-height:80vh;">
                 <div class="bg-dark text-white p-2 rounded-3 opacity-90 mx-auto" style="max-width:90%;">
                     <p id="modalCaption" class="mb-0 fw-semibold small"></p>
                 </div>
@@ -549,49 +543,39 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
-        // Init AOS Animation Library
+        // Navbar Functions
+        function toggleNavbarMenu() { document.getElementById('navbarSaaS').classList.toggle('show-menu'); }
+        function closeNavbarMenu() { document.getElementById('navbarSaaS').classList.remove('show-menu'); }
         document.addEventListener("DOMContentLoaded", () => { 
             if(typeof AOS !== 'undefined') AOS.init({ duration: 800, once: true }); 
         });
 
         // Background Music Control
         let musicPlaying = false;
-        const bgMusic = document.getElementById("bg-music");
-        const musicIcon = document.getElementById("musicIcon");
-
+        const bgMusic = document.getElementById("bg-music"), musicIcon = document.getElementById("musicIcon");
         function toggleMusic() {
-            if (musicPlaying) { 
-                bgMusic.pause(); 
-                musicIcon.className = "bi bi-disc-fill fs-4"; 
-            } else { 
-                bgMusic.play(); 
-                musicIcon.className = "bi bi-pause-circle-fill fs-4"; 
-            }
+            if (musicPlaying) { bgMusic.pause(); musicIcon.className = "bi bi-disc-fill fs-4"; }
+            else { bgMusic.play(); musicIcon.className = "bi bi-pause-circle-fill fs-4"; }
             musicPlaying = !musicPlaying;
         }
-
-        // Auto-play music on first click anywhere on page
         window.addEventListener('click', () => { 
             if(!musicPlaying && bgMusic) { 
-                bgMusic.play().then(() => { 
-                    musicPlaying = true; 
-                    musicIcon.className = "bi bi-pause-circle-fill fs-4"; 
-                }).catch(() => {}); 
+                bgMusic.play().then(() => { musicPlaying = true; musicIcon.className = "bi bi-pause-circle-fill fs-4"; }).catch(()=>{}); 
             } 
         }, {once: true});
 
         // Toggle Letter + Confetti Effect
         function toggleLetter() {
-            const lc = document.getElementById("letterContent");
-            const ei = document.getElementById("envelopeIcon");
-            const et = document.getElementById("envelopeText");
+            const lc = document.getElementById("letterContent"), 
+                  ei = document.getElementById("envelopeIcon"), 
+                  et = document.getElementById("envelopeText");
             const isHidden = lc.classList.contains("d-none");
 
             lc.classList.toggle("d-none");
             ei.className = isHidden ? "bi bi-envelope-open-heart-fill" : "bi bi-envelope-heart-fill";
             et.innerText = isHidden ? "Surat Terbuka" : "Buka Surat Ini";
 
-            // Launch Confetti when opened
+            // Semburan Confetti
             if (isHidden && typeof confetti === 'function') {
                 confetti({
                     particleCount: 100,
@@ -601,27 +585,18 @@
             }
         }
 
-        // Modal Lightbox Trigger
+        // Modal Lightbox
         function openModal(el, cap) {
             document.getElementById("modalImage").src = el.src;
             document.getElementById("modalCaption").innerText = cap;
             new bootstrap.Modal(document.getElementById('imageModal')).show();
         }
 
-        // Navbar Active Link Switcher & Auto-close on mobile click
-        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-        const navbarCollapse = document.getElementById('navbarSaaS');
-
-        navLinks.forEach(link => {
+        // Active State Link Navbar
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
             link.addEventListener('click', function() {
-                navLinks.forEach(nav => nav.classList.remove('active'));
+                document.querySelectorAll('.navbar-nav .nav-link').forEach(nav => nav.classList.remove('active'));
                 this.classList.add('active');
-                
-                // Auto close menu in mobile mode after selection
-                if(navbarCollapse.classList.contains('show')) {
-                    const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                    if(bsCollapse) bsCollapse.hide();
-                }
             });
         });
     </script>
