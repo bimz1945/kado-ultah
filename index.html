@@ -79,7 +79,7 @@
             flex: 1;
             min-height: 100vh;
             position: relative;
-            background-color: #000000;
+            background-color: #fff0f3;
             overflow: hidden;
             animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -338,12 +338,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(25px) brightness(0.5);
+            filter: blur(25px) brightness(0.6);
             transform: scale(1.1);
             z-index: 1;
         }
 
-        /* FOTO UTAMA: DIPASTIKAN TIDAK KEPOTONG DENGAN OBJECT-FIT CONTAIN */
+        /* FOTO UTAMA */
         .img-main {
             position: relative;
             z-index: 2;
@@ -353,7 +353,7 @@
             height: auto;
             object-fit: contain;
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
         .carousel-dots {
@@ -369,7 +369,7 @@
         .dot {
             width: 10px;
             height: 10px;
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -404,6 +404,7 @@
         /* PENGATURAN KHUSUS RESPONSIF LAYAR HP DAN TABLET */
         @media (max-width: 850px) {
             html, body {
+                overflow-x: hidden;
                 overflow-y: auto;
             }
 
@@ -417,16 +418,22 @@
                 min-width: 100%;
                 min-height: auto;
                 padding: 30px 20px;
+                box-shadow: none;
             }
 
             .right-panel {
                 width: 100%;
-                height: 50vh;
-                min-height: 350px;
+                height: 45vh;
+                min-height: 280px;
+                flex: none;
             }
 
             .slide-item {
-                padding: 15px;
+                padding: 10px;
+            }
+
+            .img-main {
+                max-height: 90%;
             }
         }
 
@@ -546,7 +553,7 @@
                     Tanggal jadian Sayangg Masaa lupaa 
                 </p>
                 <button type="button" class="btn btn-danger btn-sm rounded-pill px-4 py-2 w-100 fw-bold" data-bs-dismiss="modal" style="background-color: #ff526c; border: none;">
-                  ingett sayanggg
+                    ingett sayanggg
                 </button>
             </div>
         </div>

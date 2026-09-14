@@ -100,18 +100,18 @@
             .btn-logout { width: 100%; justify-content: center; }
         }
 
-        /* Hero Section */
+        /* Hero Section (BERKULTUR NGEBLEND HALUS KE SECTION BAWAH #fff0f3) */
         .hero-section { 
             position: relative; 
             height: calc(100vh - 56px); 
             min-height: 500px;
             margin-top: 56px;
             overflow: hidden; 
-            background: #000000; 
+            background: #fff0f3; 
             display: flex; 
             align-items: flex-end; 
             justify-content: center; 
-            padding-bottom: 40px; 
+            padding-bottom: 50px; 
         }
 
         .hero-video { 
@@ -133,9 +133,9 @@
             height: 100%; 
             background: linear-gradient(
                 180deg, 
-                rgba(0, 0, 0, 0.1) 0%, 
-                transparent 50%, 
-                rgba(255, 82, 108, 0.6) 85%, 
+                rgba(0, 0, 0, 0.15) 0%, 
+                rgba(255, 82, 108, 0.45) 50%, 
+                #ff526c 75%,
                 #fff0f3 100%
             ); 
             z-index: 2; 
@@ -143,23 +143,24 @@
         .hero-content { position: relative; z-index: 3; width: 100%; }
         
         .btn-sweet-hero {
-            background-color: #ff526c;
+            background-color: #ffffff;
             border: 2px solid #ffffff;
-            color: #ffffff;
+            color: #ff526c;
             font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
         }
         .btn-sweet-hero:hover {
-            background-color: #ffffff;
-            color: #ff526c;
+            background-color: #ff526c;
+            color: #ffffff;
+            border-color: #ffffff;
             transform: translateY(-3px);
         }
 
         .btn-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 82, 108, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 82, 108, 0); } }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); } }
         
         /* Ribbon Cutie Component */
         .card-ribbon {
@@ -185,21 +186,22 @@
             background: linear-gradient(135deg, #ff3b56, #ff526c);
         }
 
-        /* About Section */
+        /* About Section Cards */
         .card-about {
             border: 2px solid #ffe3e8;
             border-radius: 20px;
             background: #ffffff;
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease !important;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
             box-shadow: 0 8px 25px rgba(255, 82, 108, 0.06);
             position: relative;
             overflow: hidden;
             will-change: transform;
+            cursor: pointer;
         }
         .card-about:hover {
-            transform: translateY(-10px) scale(1.02) !important;
+            transform: translateY(-8px) scale(1.03) !important;
             border-color: #ff526c;
-            box-shadow: 0 15px 35px rgba(255, 82, 108, 0.25) !important;
+            box-shadow: 0 16px 35px rgba(255, 82, 108, 0.22) !important;
         }
         .about-img-box {
             width: 90px;
@@ -208,11 +210,11 @@
             overflow: hidden;
             border: 3px solid #ff526c;
             margin-bottom: 20px;
-            transition: all 0.3s ease;
+            transition: all 0.35s ease;
         }
         .about-img-box img { width: 100%; height: 100%; object-fit: cover; }
         .card-about:hover .about-img-box {
-            transform: scale(1.08) rotate(3deg);
+            transform: scale(1.1) rotate(4deg);
         }
 
         /* Surat Section */
@@ -228,7 +230,7 @@
         }
         .envelope-card:hover { 
             background: #ffffff; 
-            transform: translateY(-6px); 
+            transform: translateY(-6px) scale(1.01); 
             border-color: #ff526c;
             box-shadow: 0 15px 35px rgba(255, 82, 108, 0.2); 
         }
@@ -282,20 +284,21 @@
         .card-custom { 
             border: 2px solid #ffe3e8; 
             border-radius: 20px; 
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease !important; 
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1) !important; 
             background: #ffffff; 
             position: relative;
             overflow: hidden;
             will-change: transform;
+            cursor: pointer;
         }
         .card-custom:hover { 
-            transform: translateY(-10px) scale(1.02) !important; 
+            transform: translateY(-8px) scale(1.03) !important; 
             border-color: #ff526c; 
-            box-shadow: 0 15px 35px rgba(255, 82, 108, 0.25) !important; 
+            box-shadow: 0 16px 35px rgba(255, 82, 108, 0.25) !important; 
         }
         .gallery-wrapper { overflow: hidden; border-radius: 18px 18px 0 0; }
-        .img-gallery { height: 260px; object-fit: cover; width: 100%; cursor: pointer; transition: transform 0.5s; }
-        .card-custom:hover .img-gallery { transform: scale(1.08); }
+        .img-gallery { height: 260px; object-fit: cover; width: 100%; transition: transform 0.4s ease; }
+        .card-custom:hover .img-gallery { transform: scale(1.1); }
         
         /* Floating Music Button */
         .music-btn { 
@@ -310,8 +313,9 @@
             border: 2px solid #ffffff;
             box-shadow: 0 6px 20px rgba(255, 82, 108, 0.4);
             color: #ffffff;
+            transition: all 0.3s ease;
         }
-        .music-btn:hover { background-color: #ff3b56; color: #ffffff; transform: scale(1.05); }
+        .music-btn:hover { background-color: #ff3b56; color: #ffffff; transform: scale(1.08); }
 
         .envelope-icon-large { font-size: 64px; color: #ff526c; }
         .text-theme { color: #ff526c !important; }
@@ -339,7 +343,7 @@
                     <li class="nav-item px-2"><a class="nav-link" href="#letter" onclick="closeNavbarMenu()">Surat Cinta <i class="bi bi-envelope-heart ms-1"></i></a></li>
                     
                     <li class="nav-item ms-lg-3 logout-container">
-                        <a href="login.html" class="btn-logout">
+                        <a href="index.html" class="btn-logout">
                             <span>Keluar</span>
                             <i class="bi bi-box-arrow-right"></i>
                         </a>
@@ -501,7 +505,7 @@
 
                                 <p class="font-handwriting mt-3">
                                     Halo Adekk,<br><br>
-                                    Selamat ulang tahun yaa sayanggg! Terima kasih udah selalu ada buat Mas dalam suka maupun duka. Semoga sayangg diberikan umur yang panjang, rezeki yang melimpah, dan kesehatan biar bisa terus sama Mamas selamanya. Dimudahkan semua urusannya dan dijauhkan dari hal-hal buruk ya, sayangg.<br><br>
+                                    Selamat ulang tahun yaa sayanggg! Terima kasih udah selalu ada buat Mas dalam suka maupun duka. Semoga sayangg diberikan umur yang panjang, rezeki yang melimpah, dan kesehatan biar bisa terus sama Mamas selamanya. Dimudahan semua urusannya dan dijauhkan dari hal-hal buruk ya, sayangg.<br><br>
                                     Semoga sayangg diberikan keridaan dan kelancaran untuk kuliah maupun bekerja. Cita-cita dan impian sayangg semoga dikabulkan secepatnya sama Allah SWT. Semoga kita selalu diberikan kelancaran sampai berjodoh yaa sayanggg, dan semoga sayangg tetap jadi perempuan hebat buat keluarga Mas dan orang-orang di sekitar Adek.<br><br>
                                     Sekali lagi selamat ulang tahun yaa sayangg, dan terima kasih udah selalu setia di samping Mamas. Mas bakal selalu ada buat nemenin Adek ngejar semua impian Adek. Bahagia selalu yaa Adekk, doa Mas selalu bersama Adek. Semoga di tahun ini sampai seterusnya sayangg selalu diberikan hal-hal yang baik. AMINN.<br><br>
                                     Oiya, jangan lupa jaga kesehatan dan selalu bahagia yaa sayangg buat Mamas. LOVE YOU ADEKKK!<br><br>
