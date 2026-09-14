@@ -24,11 +24,10 @@
             height: 100%;
             width: 100%;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
             background-color: #fff0f3;
         }
 
-        /* OVERLAY UNTUK ANIMASI KELUAR HALAMAN (SAAT SUCCESS LOGIN) */
+        /* OVERLAY UNTUK ANIMASI KELUAR HALAMAN */
         .page-transition-overlay {
             position: fixed;
             top: 0;
@@ -49,7 +48,7 @@
 
         .app-container {
             display: flex;
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
             transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
         }
@@ -59,16 +58,12 @@
             opacity: 0;
         }
 
-        /* ======================================================== */
-        /* ANIMASI MASUK PERTAMA KALI WEBSITE DIBUKA (ENTRANCE)     */
-        /* ======================================================== */
-
-        /* Panel Kiri Meluncur dari Bawah */
+        /* PANEL KIRI */
         .left-panel {
             width: 440px;
             min-width: 440px;
             background-color: #fff0f3;
-            height: 100%;
+            min-height: 100vh;
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -76,31 +71,25 @@
             position: relative;
             z-index: 10;
             box-shadow: 10px 0 30px rgba(0, 0, 0, 0.05);
-            overflow-y: auto;
-            
-            /* CSS Animasi Landing */
             animation: slideInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Panel Kanan Meluncur dari Kanan */
+        /* PANEL KANAN (SLIDER) */
         .right-panel {
             flex: 1;
-            height: 100%;
+            min-height: 100vh;
             position: relative;
             background-color: #000000;
             overflow: hidden;
-
-            /* CSS Animasi Landing */
             animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Animasi Elemen Form Masuk Bertahap (Staggered) */
+        /* ANIMASI STAGGERED */
         .brand-logo, .avatar-container, .title-text, .subtitle-text, .form-group-custom, .remember-me, .btn-sweet-submit, .left-footer {
             opacity: 0;
             animation: fadeInElement 0.8s ease-out forwards;
         }
 
-        /* Delay Tiap Elemen Supaya Muncul Bergantian */
         .brand-logo          { animation-delay: 0.3s; }
         .avatar-container     { animation-delay: 0.45s; }
         .title-text          { animation-delay: 0.6s; }
@@ -110,43 +99,21 @@
         .btn-sweet-submit    { animation-delay: 1.0s; }
         .left-footer         { animation-delay: 1.1s; }
 
-        /* KEYFRAMES ANIMASI */
         @keyframes slideInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(60px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideInRight {
-            0% {
-                opacity: 0;
-                transform: translateX(80px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            0% { opacity: 0; transform: translateX(80px); }
+            100% { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes fadeInElement {
-            0% {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ======================================================== */
-
-        /* BRAND BADGE HEADER */
         .brand-logo {
             display: flex;
             align-items: center;
@@ -167,13 +134,12 @@
             gap: 8px;
         }
 
-        /* CONTAINER TENGAH */
         .form-center-wrapper {
             margin: auto 0;
+            padding: 20px 0;
             text-align: center;
         }
 
-        /* AVATAR / FOTO PROFIL */
         .avatar-container {
             position: relative;
             display: inline-block;
@@ -225,7 +191,6 @@
             line-height: 1.5;
         }
 
-        /* FORM INPUT */
         .form-group-custom {
             position: relative;
             margin-bottom: 15px;
@@ -244,7 +209,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Mencegah background kuning bawaan browser */
         .form-control-custom:-webkit-autofill,
         .form-control-custom:-webkit-autofill:hover, 
         .form-control-custom:-webkit-autofill:focus {
@@ -273,7 +237,6 @@
             font-size: 18px;
         }
 
-        /* CHECKBOX */
         .remember-me {
             display: flex;
             align-items: center;
@@ -292,7 +255,6 @@
             height: 16px;
         }
 
-        /* SUBMIT BUTTON CORAL PINK */
         .btn-sweet-submit {
             width: 100%;
             padding: 14px;
@@ -325,7 +287,6 @@
             box-shadow: none;
         }
 
-        /* FOOTER KIRI */
         .left-footer {
             text-align: center;
             padding-top: 10px;
@@ -345,7 +306,7 @@
 
         .hint-link:hover { opacity: 0.8; }
 
-        /* PANEL KANAN (SLIDER FOTO) */
+        /* CAROUSEL KANAN PAS UNTUK SEMUA HP */
         .custom-carousel {
             position: relative;
             width: 100%;
@@ -363,6 +324,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .slide-item.active {
@@ -381,11 +343,14 @@
             z-index: 1;
         }
 
+        /* FOTO UTAMA: DIPASTIKAN TIDAK KEPOTONG DENGAN OBJECT-FIT CONTAIN */
         .img-main {
             position: relative;
             z-index: 2;
-            max-height: 90%;
-            max-width: 90%;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             border-radius: 16px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
@@ -393,7 +358,7 @@
 
         .carousel-dots {
             position: absolute;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -416,7 +381,6 @@
             border-radius: 10px;
         }
 
-        /* MODAL PETUNJUK */
         .modal-content {
             border-radius: 24px;
             border: none;
@@ -437,22 +401,33 @@
             margin: 0 auto 15px auto;
         }
 
+        /* PENGATURAN KHUSUS RESPONSIF LAYAR HP DAN TABLET */
         @media (max-width: 850px) {
-            .app-container {
-                flex-direction: column-reverse;
+            html, body {
                 overflow-y: auto;
             }
+
+            .app-container {
+                flex-direction: column-reverse;
+                min-height: 100vh;
+            }
+
             .left-panel {
                 width: 100%;
                 min-width: 100%;
-                height: auto;
+                min-height: auto;
                 padding: 30px 20px;
             }
+
             .right-panel {
-                height: 350px;
+                width: 100%;
+                height: 50vh;
                 min-height: 350px;
             }
-            body, html { overflow: auto; }
+
+            .slide-item {
+                padding: 15px;
+            }
         }
 
         .shake { animation: shake 0.4s ease-in-out; }
@@ -472,16 +447,13 @@
         
         <!-- PANEL KIRI -->
         <div class="left-panel" id="leftPanel">
-            <!-- BRAND BADGE HEADER -->
             <div class="brand-logo">
                 <div class="brand-badge">
                     <i class="bi bi-gift-fill"></i> Special Gift
                 </div>
             </div>
 
-            <!-- FORM & FOTO PROFIL -->
             <div class="form-center-wrapper">
-                
                 <div class="avatar-container">
                     <img src="adek/adek1.jpeg" alt="Avatar Sayang" class="profile-avatar">
                     <div class="heart-badge"><i class="bi bi-heart-fill"></i></div>
@@ -491,7 +463,7 @@
                 <p class="subtitle-text">Masukkan kode rahasia buat buka kejutannya yaa!</p>
 
                 <form onsubmit="checkCode(event)">
-                    <div class="form-group-custom">
+                    <div class="form-group-custom" id="inputContainer">
                         <input type="password" id="passCode" class="form-control-custom" placeholder="Ketik kodenya di sini..." required autocomplete="off">
                         <i class="bi bi-eye-slash-fill toggle-password" id="toggleEye" onclick="togglePassword()"></i>
                     </div>
@@ -511,7 +483,6 @@
                 </form>
             </div>
 
-            <!-- FOOTER KIRI -->
             <div class="left-footer">
                 <button type="button" class="hint-link" onclick="showHint()">Klik kalo lupa Sayangg?</button>
             </div>
@@ -542,13 +513,12 @@
                 </div>
                 <div class="slide-item">
                     <img src="adek/addek6.jpeg" class="bg-blur" alt="bg">
-                    <img src="adek/addek6.jpeg" class="img-main" alt="Adek 6">
+                    <img src="adek/addek6.jpeg" class="img-main" alt="Addek 6">
                 </div>
                 <div class="slide-item">
                     <img src="adek/addek7.jpeg" class="bg-blur" alt="bg">
-                    <img src="adek/addek7.jpeg" class="img-main" alt="Adek 7">
+                    <img src="adek/addek7.jpeg" class="img-main" alt="Addek 7">
                 </div>
-                <!-- Foto Tambahan -->
                 <div class="slide-item">
                     <img src="adek/adek8.jpeg" class="bg-blur" alt="bg">
                     <img src="adek/adek8.jpeg" class="img-main" alt="Adek 8">
@@ -634,7 +604,7 @@
             event.preventDefault();
             const input = document.getElementById('passCode').value.trim();
             const errorMsg = document.getElementById('errorMsg');
-            const leftPanel = document.getElementById('leftPanel');
+            const inputContainer = document.getElementById('inputContainer');
             const appContainer = document.getElementById('appContainer');
             const pageOverlay = document.getElementById('pageOverlay');
             const btnText = document.getElementById('btnText');
@@ -654,8 +624,8 @@
 
             } else {
                 errorMsg.classList.remove('d-none');
-                leftPanel.classList.add('shake');
-                setTimeout(() => leftPanel.classList.remove('shake'), 400);
+                inputContainer.classList.add('shake');
+                setTimeout(() => inputContainer.classList.remove('shake'), 400);
             }
         }
 
